@@ -19,7 +19,6 @@ function orderedQuery(document, field, db, callback, order) {
 			querySnapshot.forEach(function(doc) {
 				a.push(doc.data());
 			});
-			console.log(a);
 			callback(a);
 		});
 }

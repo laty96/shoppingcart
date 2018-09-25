@@ -77,6 +77,11 @@ var actions = {
 			context.commit("fetchShopItems", await b);
 		});
 	},
+	FETCH_SHOP_ITEMS(context) {
+		query.orderedQuery("shopItems", "id", db, async b => {
+			context.commit("fetchShopItems", await b);
+		});
+	},
 	FETCH_CART_ITEMS(context) {
 		query.orderedQuery("cartItems", "id", db, async b => {
 			context.commit("fetchCartItems", await b);
@@ -112,7 +117,6 @@ var actions = {
 var plugins = [
 	store => {
 		store.subscribe((mutation, data) => {
-			console.log(data.items[0]);
 			if (mutation.type === "setShopItem") {
 				query.addQuery("shopItems", mutation.payload, db, doc => {}, err => {});
 			}
