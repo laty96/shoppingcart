@@ -1,5 +1,6 @@
 <template>
-  <div class="add-items container p-3">
+  <div class="add-items p-3 row">
+    <div class="col-md-4 offset-md-4">
     <div class="card">
       <div class="card-header bg-info text-white"><strong>Add new item</strong></div>
       <div class="card-body">
@@ -10,7 +11,7 @@
           </div>
           <div class="form-group">
             <label for="description">Description:</label>
-            <input type="text" class="form-control" id="description" v-model="item.description">
+            <textarea class="form-control" id="description" v-model="item.description"></textarea>
           </div>
           <div class="form-group">
             <label for="quantity">Quantity:</label>
@@ -28,6 +29,7 @@
       </div> 
       <div class="card-footer">
         <button type="button" class="btn btn-primary float-right" @click="addItem">Submit</button>
+      </div>
       </div>
     </div>
   </div>
@@ -65,17 +67,11 @@ export default {
     },
     convertImg(event) {
       var input = event.target;
-        // Ensure that you have a file before attempting to read it
         if (input.files && input.files[0]) {
-            // create a new FileReader to read this image and convert to base64 format
             var reader = new FileReader();
-            // Define a callback function to run, when FileReader finishes its job
             reader.onload = (e) => {
-                // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-                // Read image as base64 and set to imageData
                 this.item.imgData = e.target.result;
             }
-            // Start the reader job - read file as a data url (base64 format)
             reader.readAsDataURL(input.files[0]);
         }
     }

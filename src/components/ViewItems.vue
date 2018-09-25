@@ -35,17 +35,6 @@ import cartItem from '../models/cartItem.js'
 
 export default {
   name: "ViewItems",
-  data() {
-    return {
-      // items: [{
-      //   id:0,
-      //   name: 'abc',
-      //   description: 'cde',
-      //   quantity: 2,
-      //   price: 5
-      // }]
-    }
-  },
   created() {
     this.$store.dispatch('FETCH_SHOP_ITEMS')
   },

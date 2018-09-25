@@ -8,7 +8,7 @@
       </div>
     </form>
     <div class="row">
-     <div class="col-md-4" v-for="item in searchItem" :key="item.id">
+      <div class="col-md-4" v-for="item in searchItem" :key="item.id">
       <div class="card m-2">
         <div class="card-header">
           <h4>
@@ -48,8 +48,8 @@ export default {
     }
   },
   computed: {
-    searchItem() {
-      return this.$store.state.searchedItems
+    searchItem: {
+      get() { return this.$store.state.searchedItems }
     }
   }
 };

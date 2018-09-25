@@ -1,9 +1,6 @@
 <template>
   <div class="home">
     <div class="header">
-      <h1>
-        Test
-      </h1>
       <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <ul class="navbar-nav">
           <li class="nav-item">

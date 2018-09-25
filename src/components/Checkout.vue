@@ -27,7 +27,7 @@
                @input="updatePrice(item)">
               </td>
               <td class="pt-3">{{ item.price }}</td>
-              <td class="pt-3">{{ item.total }}
+              <td class="pt-3">&nbsp; {{ item.total }} &nbsp;
               <button class="btn badge badge-secondary" @click="removeCartItem(item)"><i class="fas fa-times"></i></button></td>
             </tr>
           </tbody>
@@ -37,26 +37,23 @@
         <button class="btn btn-primary float-right" @click="checkout">Checkout</button>
       </div>
     </div>
+    <h2 v-else-if="checkoutMessage">{{checkoutMessage}}</h2>
     <h2 v-else>Nothing in cart</h2>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: "Checkout",
-  data() {
-    return {
-      // itemsInCart: this.$store.state.itemsInCart
-    }
-  },
   created() {
     this.$store.dispatch('FETCH_CART_ITEMS')
   },
-  computed: {
-    itemsInCart: function() {
-      return this.$store.state.itemsInCart;
-    } 
-  },
+  computed: mapState([
+    'itemsInCart',
+    'checkoutMessage'
+  ]),
   methods: {
     removeCartItem(item) {
       this.$store.dispatch("REMOVE_CART_ITEM", item)
@@ -65,7 +62,9 @@ export default {
       item.total = item.price * item.quantity
     },
     checkout() {
-      this.$store.dispatch('CHECKOUT', this.itemsInCart)
+      this.$store.dispatch('CHECKOUT', this.itemsInCart);
+      this.$store.dispatch('DELETE_CART');
+
     }
   }
 };
