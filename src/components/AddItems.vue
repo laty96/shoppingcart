@@ -35,18 +35,17 @@
 
 <script>
 import itemModel from '../models/item.js'
-import {getBase64Image} from '../utilities/uti'
 
 export default {
   name: "AddItems",
   data() {
     return {
       item: {
-        id: this.$store.getters.itemID,
-        name: 'item',
+        id: '',
+        name: 'item' + Math.floor(Math.random()*100),
         description: 'desc',
-        quantity: '2',
-        price: '3',
+        quantity: Math.floor(Math.random()*100) ,
+        price: Math.floor(Math.random()* 100) ,
         imgData: null
       }
     }
@@ -54,8 +53,15 @@ export default {
   methods: {
     addItem() {
       let a = new itemModel(this.item);
-      this.$store.dispatch('ADD_SHOP_ITEM', a)
-      this.item.id = this.$store.getters.itemID
+      this.$store.dispatch('ADD_SHOP_ITEM', a) 
+      this.item = {
+        id: '',
+        name: 'item' + Math.floor(Math.random()*100),
+        description: 'desc',
+        quantity: Math.floor(Math.random()*100) ,
+        price: Math.floor(Math.random()* 100) ,
+        imgData: null
+      }     
     },
     convertImg(event) {
       var input = event.target;
@@ -74,6 +80,8 @@ export default {
         }
     }
   },
+  mounted() {
+  }
 };
 </script>
 

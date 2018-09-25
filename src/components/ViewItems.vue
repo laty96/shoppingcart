@@ -18,11 +18,11 @@
           </p>
           <p>
             <strong>Price:</strong> {{ item.price }}
-            <img :src="item.imgData" alt="preview image" class="preview-img float-right t-3">
+            <img v-if="item.imgData" :src="item.imgData || ''" alt="preview image" class="preview-img float-right t-3">
           </p>
         </div>
         <div class="card-footer">
-          <button class="btn btn-primary float-right">Add to cart</button>
+          <button class="btn btn-primary float-right" @click="addToCart(item)">Add to cart</button>
         </div>
       </div>
      </div>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import cartItem from '../models/cartItem.js'
+
 export default {
   name: "ViewItems",
   data() {
@@ -44,6 +46,9 @@ export default {
       // }]
     }
   },
+  created() {
+    this.$store.dispatch('FETCH_SHOP_ITEMS')
+  },
   computed: {
     items() {
       return this.$store.state.items
@@ -51,22 +56,24 @@ export default {
   },
   methods: {
     removeItem(item) {
-      this.$store.dispatch('REMOVE_SHOP_ITEM', item)
+      this.$store.dispatch('REMOVE_SHOP_ITEM', item);
     },
-    previewImg(event) {
-      let img = event.target
-      console.log(img)
+    addToCart(item) {
+      let i = item;
+      i.id = this.$store.getters.itemInCartID;
+      let e = new cartItem(i);
+      this.$store.dispatch("ADD_CART_ITEM", e);
     }
   }
 };
 </script>
 
-<style scoped>
+<style>
   .preview-img {
     width: 50px;
     height: auto;
     border: 1px solid black;
-    transition: all .3s ease;
+    transition: all .3s ease .2s;
     top: 15px;
   }
   .preview-img:hover {
